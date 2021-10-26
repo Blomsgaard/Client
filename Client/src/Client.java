@@ -32,24 +32,11 @@ public class Client {
             // Write username, and send it to the server
             out.writeUTF(username);
 
-            //while (connect) {
-                /*System.out.println("Enter annual interest rate");
-                double annualInterestRate = input.nextDouble();
+            //Creates a thread for printing messages that send from the server.
+            //This thread continues to run until the program is shut down
+            PrintStrings print = new PrintStrings(socket);
+            print.start();
 
-                System.out.println("Enter number of years");
-                int numOfYears = input.nextInt();
-
-                System.out.println("Enter loan amount");
-                double loanAmount = input.nextDouble();
-
-                out.writeDouble(annualInterestRate);
-                out.writeInt(numOfYears);
-                out.writeDouble(loanAmount);
-
-                 */
-            //out.flush();
-
-            // }
 
             // Connection loop
             while(connect){
