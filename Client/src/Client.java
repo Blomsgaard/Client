@@ -19,7 +19,7 @@ public class Client {
         Scanner input = new Scanner(System.in);
         boolean connect = true;
 
-        // Username input
+        // Telling the user to input a name and then using the scanner to get the input
         System.out.println("Enter username: ");
         String username = input.nextLine();
 
