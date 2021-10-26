@@ -15,18 +15,22 @@ public class Client {
 
     public static void main(String[] args) {
 
+        // Scanner method
         Scanner input = new Scanner(System.in);
         boolean connect = true;
 
-        System.out.println("Enter name: ");
-        String name = input.nextLine();
+        // Username input
+        System.out.println("Enter username: ");
+        String username = input.nextLine();
 
+        // Establishing Server Connection
         try {
             socket = new Socket(host, port);
             in = new DataInputStream(socket.getInputStream());
             out = new DataOutputStream(socket.getOutputStream());
 
-            out.writeUTF(name);
+            // Write username
+            out.writeUTF(username);
 
             //while (connect) {
                 /*System.out.println("Enter annual interest rate");
@@ -46,6 +50,8 @@ public class Client {
             //out.flush();
 
             // }
+
+            // Connection loop
             while(connect){
                 //Boolean lobby = true;
                 //out.writeBoolean(lobby);
@@ -53,6 +59,7 @@ public class Client {
                 //System.out.println(lobbyName);
 
 
+                // Press 1 to tell server to start the game
                 int start = input.nextInt();
                 System.out.println(start);
                 if(start == 1){
