@@ -7,7 +7,7 @@ import java.util.Scanner;
 
 public class Client {
 
-    static String host = "172.20.10.7";
+    static String host = "192.168.43.6";
     static int port = 6969;
     static DataInputStream in;
     static DataOutputStream out;
@@ -18,10 +18,15 @@ public class Client {
         Scanner input = new Scanner(System.in);
         boolean connect = true;
 
+        System.out.println("Enter name: ");
+        String name = input.nextLine();
+
         try {
             socket = new Socket(host, port);
             in = new DataInputStream(socket.getInputStream());
             out = new DataOutputStream(socket.getOutputStream());
+
+            out.writeUTF(name);
 
             //while (connect) {
                 /*System.out.println("Enter annual interest rate");
@@ -46,12 +51,15 @@ public class Client {
                 //out.writeBoolean(lobby);
                 //String lobbyName = in.readUTF();
                 //System.out.println(lobbyName);
+
+
                 int start = input.nextInt();
                 System.out.println(start);
                 if(start == 1){
                     boolean test = true;
                     System.out.println(test);
                     out.writeBoolean(test);
+
                 }
 
 
