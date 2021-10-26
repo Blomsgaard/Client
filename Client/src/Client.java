@@ -29,7 +29,7 @@ public class Client {
             in = new DataInputStream(socket.getInputStream());
             out = new DataOutputStream(socket.getOutputStream());
 
-            // Write username
+            // Write username, and send it to the server
             out.writeUTF(username);
 
             //while (connect) {
