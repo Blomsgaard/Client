@@ -1,7 +1,4 @@
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
+import java.io.*;
 import java.net.Socket;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
@@ -9,12 +6,12 @@ import java.util.Scanner;
 
 public class Client implements java.io.Serializable {
 
-    static String host = "192.168.43.6";
+    static String host = "192.168.0.32";
     static int port = 6969;
     static DataInputStream in;
     static DataOutputStream out;
     static Socket socket;
-    static ObjectInputStream objectIn;
+    //static ObjectInputStream objectIn;
     ArrayList<SolutionCard> userHand = new ArrayList<SolutionCard>(5);
 
     public static void main(String[] args) {
@@ -64,18 +61,21 @@ public class Client implements java.io.Serializable {
                         boolean test = true;
                         System.out.println(test);
                         out.writeBoolean(test);
-
+                        System.out.println("Test");
+                        //Stops the print thread, so the text field can be added to the users hand
+                        print.exit();
                     }
 
 
-                    // getUserHand(socket);
-                    objectIn = new ObjectInputStream(socket.getInputStream());
-                    // for (int i = 0; i < 5; i++) {
-                    SolutionCard temp = (SolutionCard) objectIn.readObject();
-                    userHand.add(temp);
+                    System.out.println("Test");
+                    getUserHand(socket);
+                    System.out.println("Test");
+                    System.out.println(userHand);
+                    print.run();
 
-                    //}
-                    System.out.println(userHand.get(0).toString());
+
+
+
 
 
                 }
@@ -89,14 +89,12 @@ public class Client implements java.io.Serializable {
             }
         }
 
-
+    //Adds solutions cards to a userhands by receiving a String value
     public void getUserHand(Socket socket) throws IOException, ClassNotFoundException {
-        objectIn = new ObjectInputStream(socket.getInputStream());
-       // for (int i = 0; i < 5; i++) {
-            SolutionCard temp = (SolutionCard) objectIn.readObject();
-            userHand.add(temp);
-
-        //}
+        in = new DataInputStream(socket.getInputStream());
+        for (int i = 0; i < 5; i++) {
+            userHand.add(new SolutionCard(in.readUTF()));
+        }
 
     }
 }

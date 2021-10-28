@@ -5,6 +5,7 @@ public class PrintStrings extends Thread{
     private String message;
     private DataInputStream in;
     private Socket socket;
+    private boolean running;
 
     //Constructor to create a thread
     public PrintStrings(Socket socket){
@@ -14,8 +15,9 @@ public class PrintStrings extends Thread{
     @Override
     public void run() {
         try{
+            running = true;
             //This loop continues to check for messages sent by the server and print them in the console.
-            while(true) {
+            while(running) {
                 in = new DataInputStream(socket.getInputStream());
                 message = in.readUTF();
                 System.out.println(message);
@@ -23,5 +25,10 @@ public class PrintStrings extends Thread{
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    //A method to stop the printing at certain times
+    public void exit(){
+        running = false;
     }
 }
