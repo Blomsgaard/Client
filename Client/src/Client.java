@@ -11,6 +11,7 @@ public class Client implements java.io.Serializable {
     static DataInputStream in;
     static DataOutputStream out;
     static Socket socket;
+    private PrintStrings print;
     //static ObjectInputStream objectIn;
     ArrayList<SolutionCard> userHand = new ArrayList<SolutionCard>(5);
 
@@ -40,14 +41,16 @@ public class Client implements java.io.Serializable {
                 // Write username, and send it to the server
                 out.writeUTF(username);
 
+                printStart();
+
                 //Creates a thread for printing messages that send from the server.
                 //This thread continues to run until the program is shut down
-                PrintStrings print = new PrintStrings(socket);
+                /*PrintStrings print = new PrintStrings(socket);
                 print.start();
 
 
                 // Connection loop
-                while (connect) {
+
                     //Boolean lobby = true;
                     //out.writeBoolean(lobby);
                     //String lobbyName = in.readUTF();
@@ -61,30 +64,22 @@ public class Client implements java.io.Serializable {
                         boolean test = true;
                         System.out.println(test);
                         out.writeBoolean(test);
-                        System.out.println("Test");
                         //Stops the print thread, so the text field can be added to the users hand
                         print.exit();
-                    }
+                    }*/
 
 
-                    System.out.println("Test");
-                    getUserHand(socket);
-                    System.out.println("Test");
-                    System.out.println(userHand);
-                    print.run();
+                    Game game = new Game(socket, this);
+                    game.start();
 
 
 
 
 
-
-                }
 
             } catch (UnknownHostException e) {
                 e.printStackTrace();
             } catch (IOException e) {
-                e.printStackTrace();
-            } catch (ClassNotFoundException e) {
                 e.printStackTrace();
             }
         }
@@ -97,5 +92,15 @@ public class Client implements java.io.Serializable {
         }
 
     }
+
+    public void printStop(){
+        this.print.exit();
+    }
+
+    public void printStart(){
+        print = new PrintStrings(socket);
+        print.start();
+    }
+
 }
 

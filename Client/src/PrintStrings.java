@@ -5,7 +5,7 @@ public class PrintStrings extends Thread{
     private String message;
     private DataInputStream in;
     private Socket socket;
-    private boolean running;
+    private boolean running = true;
 
     //Constructor to create a thread
     public PrintStrings(Socket socket){
@@ -15,13 +15,13 @@ public class PrintStrings extends Thread{
     @Override
     public void run() {
         try{
-            running = true;
             //This loop continues to check for messages sent by the server and print them in the console.
-            while(running) {
-                in = new DataInputStream(socket.getInputStream());
-                message = in.readUTF();
-                System.out.println(message);
-            }
+                while (running) {
+                    in = new DataInputStream(socket.getInputStream());
+                    message = in.readUTF();
+                    System.out.println(message);
+                }
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -31,4 +31,16 @@ public class PrintStrings extends Thread{
     public void exit(){
         running = false;
     }
+
+    public void pause(){
+        try {
+            System.out.println("Sleeping test");
+            Thread.sleep(10000);
+            System.out.println("Sleeping test2");
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+
 }
