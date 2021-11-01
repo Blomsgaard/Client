@@ -84,7 +84,7 @@ public class Client implements java.io.Serializable {
             }
         }
 
-    //Adds solutions cards to a userhands by receiving a String value
+    //Adds solutions cards to userhands by receiving a String value
     public void getUserHand(Socket socket) throws IOException, ClassNotFoundException {
         in = new DataInputStream(socket.getInputStream());
         for (int i = 0; i < 5; i++) {

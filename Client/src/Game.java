@@ -5,14 +5,14 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class Game extends Thread{
+public class Game extends Thread {
     private Client client;
     private Socket socket;
     private DataInputStream in;
     private DataOutputStream out;
     private ArrayList<SolutionCard> userHand = new ArrayList<SolutionCard>(5);
 
-    public Game(Socket socket, Client client){
+    public Game(Socket socket, Client client) {
         this.socket = socket;
         this.client = client;
     }
@@ -52,13 +52,25 @@ public class Game extends Thread{
             client.printStart();
 
 
+            //while (true) {
+                //Choose the solution by the index value and sent it to server
+                int sentInt = input.nextInt();
+                System.out.println(sentInt);
+                out.writeInt(sentInt);
 
-            System.out.println("Test1");
-            int sentInt = input.nextInt();
-            System.out.println(sentInt);
-            System.out.println("Test");
+                boolean stopPrint = in.readBoolean();
 
-            out.writeInt(sentInt);
+                /*if (stopPrint = true) {
+                    client.printStop();
+                    stopPrint = false;
+                    getNewCard(socket);
+                    client.printStart();
+                } else {
+
+                }*/
+            //}
+
+
         } catch (IOException e) {
             e.printStackTrace();
         } catch (ClassNotFoundException e) {
@@ -74,5 +86,10 @@ public class Game extends Thread{
             userHand.add(new SolutionCard(in.readUTF()));
         }
 
+    }
+
+    public void getNewCard(Socket socket) throws IOException, ClassNotFoundException {
+        in = new DataInputStream(socket.getInputStream());
+        userHand.add(new SolutionCard(in.readUTF()));
     }
 }
