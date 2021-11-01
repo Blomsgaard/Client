@@ -8,6 +8,7 @@ import java.util.Scanner;
 public class Game extends Thread {
     private Client client;
     private Socket socket;
+    private boolean stopPrint;
     private DataInputStream in;
     private DataOutputStream out;
     private ArrayList<SolutionCard> userHand = new ArrayList<SolutionCard>(5);
@@ -18,7 +19,7 @@ public class Game extends Thread {
     }
 
     @Override
-    public void run() {
+    public synchronized void run() {
         Scanner input = new Scanner(System.in);
         try {
             in = new DataInputStream(socket.getInputStream());
@@ -52,13 +53,12 @@ public class Game extends Thread {
             client.printStart();
 
 
-            //while (true) {
+            while (true) {
                 //Choose the solution by the index value and sent it to server
                 int sentInt = input.nextInt();
                 System.out.println(sentInt);
                 out.writeInt(sentInt);
 
-                boolean stopPrint = in.readBoolean();
 
                 /*if (stopPrint = true) {
                     client.printStop();
@@ -68,7 +68,7 @@ public class Game extends Thread {
                 } else {
 
                 }*/
-            //}
+            }
 
 
         } catch (IOException e) {

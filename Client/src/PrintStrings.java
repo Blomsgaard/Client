@@ -13,7 +13,7 @@ public class PrintStrings extends Thread{
     }
 
     @Override
-    public void run() {
+    public synchronized void run() {
         try{
             //This loop continues to check for messages sent by the server and print them in the console.
                 while (running) {
@@ -30,16 +30,6 @@ public class PrintStrings extends Thread{
     //A method to stop the printing at certain times
     public void exit(){
         running = false;
-    }
-
-    public void pause(){
-        try {
-            System.out.println("Sleeping test");
-            Thread.sleep(10000);
-            System.out.println("Sleeping test2");
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
     }
 
 
