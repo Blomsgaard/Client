@@ -34,8 +34,6 @@ public class PrintStrings extends Thread{
                             names.add(name);
                         }
                         client.makePlayerList(names);
-                        System.out.println(names);
-
                     }
                     else{
                         System.out.println(message);
