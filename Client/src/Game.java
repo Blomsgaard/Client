@@ -54,11 +54,13 @@ public class Game extends Thread {
 
 
             while (true) {
+
                 //Choose the solution by the index value and sent it to server
                 int sentInt = input.nextInt();
                 System.out.println(sentInt);
                 out.writeInt(sentInt);
 
+                System.out.println(client.playerNames);
 
                 /*if (stopPrint = true) {
                     client.printStop();

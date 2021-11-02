@@ -1,15 +1,18 @@
 import java.io.DataInputStream;
 import java.net.Socket;
+import java.util.ArrayList;
 
 public class PrintStrings extends Thread{
     private String message;
     private DataInputStream in;
     private Socket socket;
     private boolean running = true;
+    private Client client;
 
     //Constructor to create a thread
-    public PrintStrings(Socket socket){
+    public PrintStrings(Socket socket, Client client){
         this.socket = socket;
+        this.client = client;
     }
 
     @Override
@@ -19,7 +22,25 @@ public class PrintStrings extends Thread{
                 while (running) {
                     in = new DataInputStream(socket.getInputStream());
                     message = in.readUTF();
-                    System.out.println(message);
+
+                    //Statements that check if a certain message is send to the client.
+                    // In that case the method should do a different task than printing
+                    if(message.equals("PLAYER_LIST")){
+                        //In this case is adds players received from the server in a list, so they can be displayed in FX
+                        int numberOfPLayer = in.readInt();
+                        ArrayList<String> names = new ArrayList<>();
+                        for(int i = 0; i < numberOfPLayer; i++){
+                            String name = in.readUTF();
+                            names.add(name);
+                        }
+                        client.makePlayerList(names);
+                        System.out.println(names);
+
+                    }
+                    else{
+                        System.out.println(message);
+
+                    }
                 }
 
         } catch (Exception e) {
