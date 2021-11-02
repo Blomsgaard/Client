@@ -3,12 +3,13 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Game extends Thread {
     private Client client;
     private Socket socket;
-    private boolean stopPrint;
+    private boolean readyWait = true;
     private DataInputStream in;
     private DataOutputStream out;
     private ArrayList<SolutionCard> userHand = new ArrayList<SolutionCard>(5);
@@ -25,32 +26,17 @@ public class Game extends Thread {
             in = new DataInputStream(socket.getInputStream());
             out = new DataOutputStream(socket.getOutputStream());
 
-
-            // Connection loop
-
-            //Boolean lobby = true;
-            //out.writeBoolean(lobby);
-            //String lobbyName = in.readUTF();
-            //System.out.println(lobbyName);
-
-
             // Press 1 to tell server to start the game
-            int start = input.nextInt();
-            System.out.println(start);
-            if (start == 1) {
-                boolean test = true;
-                System.out.println(test);
-                out.writeBoolean(test);
-                //Stops the print thread, so the text field can be added to the users hand
-                client.printStop();
+
+            while(readyWait) {
+                System.out.println("Press 1 when you are ready");
+                int start = input.nextInt();
+                if (start == 1) {
+                    boolean test = true;
+                    out.writeBoolean(test);
+                    readyWait = false;
+                }
             }
-
-            getUserHand(socket);
-
-
-            System.out.println(userHand);
-
-            client.printStart();
 
 
             while (true) {
@@ -59,8 +45,6 @@ public class Game extends Thread {
                 int sentInt = input.nextInt();
                 System.out.println(sentInt);
                 out.writeInt(sentInt);
-
-                System.out.println(client.playerNames);
 
                 /*if (stopPrint = true) {
                     client.printStop();
@@ -74,8 +58,6 @@ public class Game extends Thread {
 
 
         } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
     }
