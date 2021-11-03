@@ -6,7 +6,7 @@ import java.util.Scanner;
 
 public class Client implements java.io.Serializable {
 
-    static String host = "192.168.0.16";
+    static String host = "192.168.43.6";
     static int port = 6969;
 
     static DataInputStream in;
@@ -17,6 +17,7 @@ public class Client implements java.io.Serializable {
 
     ArrayList<SolutionCard> userHand = new ArrayList<SolutionCard>(5);
     ArrayList<String> playerNames = new ArrayList<>();
+    ArrayList<Integer> playerPoints = new ArrayList<>();
 
     public static void main(String[] args) {
         Client client = new Client();
@@ -81,8 +82,16 @@ public class Client implements java.io.Serializable {
     }
 
     public void makePlayerList(ArrayList<String> names){
+        playerNames = new ArrayList<>();
         for(int i = 0; i < names.size(); i++){
             playerNames.add(names.get(i));
+        }
+    }
+
+    public void makeScoreboard(ArrayList<Integer> points){
+        playerPoints = new ArrayList<>();
+        for(int i = 0; i < points.size(); i++){
+            playerPoints.add(points.get(i));
         }
     }
 

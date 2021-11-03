@@ -30,8 +30,8 @@ public class Game extends Thread {
 
             while(readyWait) {
                 System.out.println("Press 1 when you are ready");
-                int start = input.nextInt();
-                if (start == 1) {
+                String start = input.nextLine();
+                if (start.equals("1")) {
                     boolean test = true;
                     out.writeBoolean(test);
                     readyWait = false;

@@ -35,6 +35,15 @@ public class PrintStrings extends Thread{
                         }
                         client.makePlayerList(names);
                     }
+                    else if(message.equals("SCOREBOARD")){
+                        int numberOfPLayer = in.readInt();
+                        ArrayList<Integer> playerPoints = new ArrayList<>();
+                        for(int i = 0; i < numberOfPLayer; i++){
+                            int point = in.readInt();
+                            playerPoints.add(point);
+                        }
+                        client.makeScoreboard(playerPoints);
+                    }
                     else{
                         System.out.println(message);
 
