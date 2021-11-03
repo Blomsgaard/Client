@@ -93,6 +93,7 @@ public class Client implements java.io.Serializable {
         for(int i = 0; i < points.size(); i++){
             playerPoints.add(points.get(i));
         }
+        System.out.println(playerPoints);
     }
 
 }
