@@ -22,10 +22,11 @@ public class PrintStrings extends Thread{
                 while (running) {
                     in = new DataInputStream(socket.getInputStream());
                     message = in.readUTF();
+                    System.out.println(message);
 
                     //Statements that check if a certain message is send to the client.
                     // In that case the method should do a different task than printing
-                    if(message.equals("PLAYER_LIST")){
+                    /*if(message.equals("PLAYER_LIST")){
                         //In this case is adds players received from the server in a list, so they can be displayed in FX
                         int numberOfPLayer = in.readInt();
                         ArrayList<String> names = new ArrayList<>();
@@ -47,7 +48,7 @@ public class PrintStrings extends Thread{
                     else{
                         System.out.println(message);
 
-                    }
+                    }*/
                 }
 
         } catch (Exception e) {
