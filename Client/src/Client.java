@@ -6,7 +6,7 @@ import java.util.Scanner;
 
 public class Client implements java.io.Serializable {
 
-    static String host = "172.20.10.2";
+    static String host = "192.168.43.139";
     static int port = 6970;
 
     static DataInputStream in;
