@@ -6,8 +6,8 @@ import java.util.Scanner;
 
 public class Client implements java.io.Serializable {
 
-    static String host = "192.168.43.6";
-    static int port = 6969;
+    static String host = "192.168.43.139";
+    static int port = 6970;
 
     static DataInputStream in;
     static DataOutputStream out;
@@ -95,6 +95,5 @@ public class Client implements java.io.Serializable {
         }
         System.out.println(playerPoints);
     }
-
 }
 
